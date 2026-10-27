@@ -914,6 +914,7 @@
             reader.onload = function(e) {
                 parseCSVText(e.target.result);
                 showToast('📂 Leads do CSV carregados com sucesso nos Ativos!');
+                event.target.value = ''; // Reset input to allow re-importing the same file
             };
             reader.readAsText(file);
         }
