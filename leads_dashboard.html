@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P1XEL Creative — OmniRoute Leads Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Teko:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #0a0a0a;
+            --bg-surface: #121212;
+            --bg-surface-elevated: #1a1a1a;
+            --border-color: #262626;
+            --border-hover: #404040;
+            --text-primary: #ffffff;
+            --text-secondary: #a3a3a3;
+            --text-muted: #737373;
+            --accent: #FF6A00;
+            --accent-hover: #ff852e;
+            --accent-glow: rgba(255, 106, 0, 0.15);
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --whatsapp: #25D366;
+            --radius-lg: 16px;
+            --radius-md: 10px;
+            --radius-sm: 6px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-banner {
+            background: linear-gradient(90deg, var(--accent), #ff8c33);
+            color: #000;
+            font-weight: 600;
+            font-size: 14px;
+            text-align: center;
+            padding: 8px 20px;
+            letter-spacing: 0.5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        header {
+            background: rgba(18, 18, 18, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .brand-logo {
+            width: 44px;
+            height: 44px;
+            background: var(--accent);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Teko', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .brand-title {
+            font-family: 'Teko', sans-serif;
+            font-size: 32px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            line-height: 1;
+            color: #fff;
+        }
+
+        .brand-title span {
+            color: var(--accent);
+        }
+
+        .brand-subtitle {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-tabs {
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 40px;
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 16px 4px;
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        main {
+            flex: 1;
+            padding: 32px 40px;
+            max-width: 1600px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .filter-toolbar {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 20px 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 280px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            background: var(--bg-base);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 12px 16px 12px 42px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .filter-select {
+            background: var(--bg-base);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 12px 16px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            min-width: 160px;
+        }
+
+        .btn {
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 12px 20px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            border-color: var(--border-hover);
+            background: var(--border-color);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        .leads-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 24px;
+        }
+
+        .lead-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .lead-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        .lead-card-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .lead-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .lead-meta-badges {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            font-size: 11px;
+            font-weight: 500;
+            padding: 3px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .badge-nicho {
+            background: rgba(255, 106, 0, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(255, 106, 0, 0.2);
+        }
+
+        .badge-cidade {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .score-pill {
+            font-family: 'Teko', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            background: var(--bg-base);
+            border: 1px solid var(--border-color);
+            color: var(--accent);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .lead-card-body {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .contact-links {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            font-size: 12px;
+            padding: 6px 12px;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+        }
+
+        .contact-btn.instagram {
+            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C);
+            color: #fff;
+        }
+
+        .contact-btn.whatsapp {
+            background: var(--whatsapp);
+            color: #fff;
+        }
+
+        .card-actions-bottom {
+            display: flex;
+            gap: 8px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 12px;
+            margin-top: 4px;
+            flex-wrap: wrap;
+        }
+
+        .action-icon-btn {
+            flex: 1;
+            background: var(--bg-base);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 500;
+            padding: 8px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .action-icon-btn:hover {
+            border-color: var(--border-hover);
+            background: var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .action-icon-btn.btn-future:hover {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+            border-color: var(--warning);
+        }
+
+        .action-icon-btn.btn-exclude:hover {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            border-color: var(--danger);
+        }
+
+        .message-section {
+            border-top: 1px solid var(--border-color);
+            padding-top: 14px;
+        }
+
+        .message-toggle {
+            background: none;
+            border: none;
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            text-align: left;
+        }
+
+        .message-container {
+            display: none;
+            margin-top: 12px;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message-container.show {
+            display: flex;
+        }
+
+        .message-box {
+            background: var(--bg-base);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 12px;
+        }
+
+        .message-box-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .copy-btn {
+            background: none;
+            border: none;
+            color: var(--accent);
+            font-size: 11px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .message-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 80px 20px;
+            background: var(--bg-surface);
+            border: 1px dashed var(--border-color);
+            border-radius: var(--radius-lg);
+        }
+
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 24px;
+        }
+
+        .analytics-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+        }
+
+        .analytics-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        #csvInput {
+            display: none;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--accent);
+            color: var(--text-primary);
+            padding: 14px 24px;
+            border-radius: var(--radius-md);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 2000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-banner">
+        <span>⚡ P1XEL CREATIVE — LEADS VALIDADOS RIGOROSAMENTE (INSTAGRAM & WHATSAPP)</span>
+    </div>
+
+    <header>
+        <div class="brand">
+            <div class="brand-logo">P1</div>
+            <div>
+                <div class="brand-title">P1XEL <span>CREATIVE</span></div>
+                <div class="brand-subtitle">OmniRoute Engine</div>
+            </div>
+        </div>
+        <div class="header-actions">
+            <span id="lastUpdate" style="font-size: 13px; color: var(--text-secondary);">Atualizado: --</span>
+            <button class="btn" onclick="document.getElementById('csvInput').click()">📂 Importar CSV</button>
+            <button class="btn btn-primary" onclick="exportCSV()">📥 Exportar</button>
+        </div>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('leads', this)">🔥 Leads Ativos (<span id="countAtivos">0</span>)</button>
+        <button class="tab-btn" onclick="switchTab('futuros', this)">⭐ Prospects Futuros (<span id="countFuturos">0</span>)</button>
+        <button class="tab-btn" onclick="switchTab('excluidos', this)">❌ Leads Excluídos (<span id="countExcluidos">0</span>)</button>
+        <button class="tab-btn" onclick="switchTab('analytics', this)">📊 Estatísticas</button>
+    </div>
+
+    <main>
+        <!-- TAB 1: LEADS ATIVOS -->
+        <div id="tab-leads" class="tab-content active">
+            <div class="filter-toolbar">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="filterSearch" placeholder="Pesquisar..." oninput="applyFilters()">
+                </div>
+                <select class="filter-select" id="filterCidade" onchange="applyFilters()">
+                    <option value="">Todas as Cidades</option>
+                    <option value="Bauru">Bauru</option>
+                    <option value="São Paulo">São Paulo</option>
+                </select>
+            </div>
+            <div class="leads-grid" id="leadsGrid"></div>
+        </div>
+
+        <!-- TAB 2: PROSPECTS FUTUROS -->
+        <div id="tab-futuros" class="tab-content">
+            <div class="leads-grid" id="futurosGrid"></div>
+        </div>
+
+        <!-- TAB 3: EXCLUÍDOS -->
+        <div id="tab-excluidos" class="tab-content">
+            <div class="leads-grid" id="excluidosGrid"></div>
+        </div>
+
+        <!-- TAB 4: ANALYTICS -->
+        <div id="tab-analytics" class="tab-content">
+            <div class="analytics-grid">
+                <div class="analytics-card">
+                    <h3 class="analytics-title">📊 Leads por Nicho</h3>
+                    <div id="nichoBars"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <input type="file" id="csvInput" accept=".csv" onchange="importCSV(event)">
+    <div class="toast" id="toast"><span id="toastText">Ação realizada!</span></div>
+
+    <script>
+        let leads = [
+  {
+    "Nome": "Clínica Althea",
+    "Nicho": "Negócio Local & Clínicas",
+    "Cidade": "Bauru",
+    "Website": "https://www.instagram.com/altheabauru/",
+    "Telefone": "",
+    "WhatsApp": "",
+    "Instagram": "https://instagram.com/altheabauru",
+    "Contato_Principal": "https://instagram.com/altheabauru",
+    "Score": 75,
+    "Mensagem_Abertura": "Oi Clínica! Acompanho seu trabalho em Bauru e vejo o quanto sua marca tem potencial. Notei que você ainda não investe em vídeos de posicionamento profissional para elevar seu ticket médio. Já pensou nisso?",
+    "Mensagem_Reuniao": "Que tal trocarmos 15 minutos de ideia pelo Zoom nesta semana? Posso te mostrar exemplos práticos de vídeos que produzi para negócios na sua região que geraram ótimos resultados. O que acha?",
+    "Notas": "70 Followers, 17 Following, 3 Posts -ClínicaAlthea -Estéticae Bem-estar (@altheabauru) onInstagram: \"A primeira e únicaclínicadeBauruespecializada em ",
+    "Data_encontrado": "2026-10-27 17:01:43"
+  },
+  {
+    "Nome": "LB CLINIC",
+    "Nicho": "Negócio Local & Clínicas",
+    "Cidade": "Bauru",
+    "Website": "https://www.instagram.com/lbclinic__/",
+    "Telefone": "",
+    "WhatsApp": "",
+    "Instagram": "https://instagram.com/lbclinic__",
+    "Contato_Principal": "https://instagram.com/lbclinic__",
+    "Score": 75,
+    "Mensagem_Abertura": "Oi LB! Acompanho seu trabalho em Bauru e vejo o quanto sua marca tem potencial. Notei que você ainda não investe em vídeos de posicionamento profissional para elevar seu ticket médio. Já pensou nisso?",
+    "Mensagem_Reuniao": "Que tal trocarmos 15 minutos de ideia pelo Zoom nesta semana? Posso te mostrar exemplos práticos de vídeos que produzi para negócios na sua região que geraram ótimos resultados. O que acha?",
+    "Notas": "489 Followers, 167 Following, 84 Posts - LB CLINIC |ESTÉTICABAURU(@lbclinic__) onInstagram: \"FACIAL | CORPORAL | DEPILAÇÃO | SOBRANCELHA •MÉTODO LIPO ",
+    "Data_encontrado": "2026-10-27 17:01:43"
+  },
+  {
+    "Nome": "Elegance",
+    "Nicho": "Negócio Local & Clínicas",
+    "Cidade": "Bauru",
+    "Website": "https://linktr.ee/eleganceestetica_oficial",
+    "Telefone": "",
+    "WhatsApp": "",
+    "Instagram": "https://instagram.com/elegance",
+    "Contato_Principal": "https://instagram.com/elegance",
+    "Score": 75,
+    "Mensagem_Abertura": "Oi Elegance! Acompanho seu trabalho em Bauru e vejo o quanto sua marca tem potencial. Notei que você ainda não investe em vídeos de posicionamento profissional para elevar seu ticket médio. Já pensou nisso?",
+    "Mensagem_Reuniao": "Que tal trocarmos 15 minutos de ideia pelo Zoom nesta semana? Posso te mostrar exemplos práticos de vídeos que produzi para negócios na sua região que geraram ótimos resultados. O que acha?",
+    "Notas": "Elegance | Protocolo FA has been a member of Linktree for 1 year and joined in January 2025.",
+    "Data_encontrado": "2026-10-27 17:01:43"
+  },
+  {
+    "Nome": "Estética Plexus",
+    "Nicho": "Negócio Local & Clínicas",
+    "Cidade": "Bauru",
+    "Website": "https://www.facebook.com/plexusestetica/",
+    "Telefone": "",
+    "WhatsApp": "",
+    "Instagram": "https://instagram.com/estticaplexus",
+    "Contato_Principal": "https://instagram.com/estticaplexus",
+    "Score": 75,
+    "Mensagem_Abertura": "Oi Estética! Acompanho seu trabalho em Bauru e vejo o quanto sua marca tem potencial. Notei que você ainda não investe em vídeos de posicionamento profissional para elevar seu ticket médio. Já pensou nisso?",
+    "Mensagem_Reuniao": "Que tal trocarmos 15 minutos de ideia pelo Zoom nesta semana? Posso te mostrar exemplos práticos de vídeos que produzi para negócios na sua região que geraram ótimos resultados. O que acha?",
+    "Notas": "EstéticaPlexus,Bauru. 343 followers · 8 talking about this · 36 were here.Clínicadeestéticaespecializada em proporcionar saúde, beleza e promover...",
+    "Data_encontrado": "2026-10-27 17:01:43"
+  },
+  {
+    "Nome": "Clínica L A",
+    "Nicho": "Negócio Local & Clínicas",
+    "Cidade": "Bauru",
+    "Website": "https://www.facebook.com/luisdepilacaomasculina/",
+    "Telefone": "",
+    "WhatsApp": "",
+    "Instagram": "https://instagram.com/clnicala",
+    "Contato_Principal": "https://instagram.com/clnicala",
+    "Score": 75,
+    "Mensagem_Abertura": "Oi Clínica! Acompanho seu trabalho em Bauru e vejo o quanto sua marca tem potencial. Notei que você ainda não investe em vídeos de posicionamento profissional para elevar seu ticket médio. Já pensou nisso?",
+    "Mensagem_Reuniao": "Que tal trocarmos 15 minutos de ideia pelo Zoom nesta semana? Posso te mostrar exemplos práticos de vídeos que produzi para negócios na sua região que geraram ótimos resultados. O que acha?",
+    "Notas": "Depilação íntima masculina vai muito além daestética. É sobre higiene, conforto e bem-estar no dia a dia. Aqui, cada etapa é feita com técnica, cuidad",
+    "Data_encontrado": "2026-10-27 17:01:43"
+  },
+  {
+    "Nome": "Una Estética e Laser",
+    "Nicho": "Negócio Local & Clínicas",
+    "Cidade": "Bauru",
+    "Website": "http://unaestetica.com.br/",
+    "Telefone": "",
+    "WhatsApp": "",
+    "Instagram": "https://instagram.com/unaestticaelaser",
+    "Contato_Principal": "https://instagram.com/unaestticaelaser",
+    "Score": 75,
+    "Mensagem_Abertura": "Oi Una! Acompanho seu trabalho em Bauru e vejo o quanto sua marca tem potencial. Notei que você ainda não investe em vídeos de posicionamento profissional para elevar seu ticket médio. Já pensou nisso?",
+    "Mensagem_Reuniao": "Que tal trocarmos 15 minutos de ideia pelo Zoom nesta semana? Posso te mostrar exemplos práticos de vídeos que produzi para negócios na sua região que geraram ótimos resultados. O que acha?",
+    "Notas": "AClínicaUna é um espaço pensado para quem valoriza o equilíbrio entreestética, saúde e bem-estar. Há mais de treze anos, reunimos experiência, tecnolo",
+    "Data_encontrado": "2026-10-27 17:01:43"
+  },
+  {
+    "Nome": "Galeria",
+    "Nicho": "Negócio Local & Clínicas",
+    "Cidade": "Bauru",
+    "Website": "https://clinicastatus.com.br/galeria/",
+    "Telefone": "",
+    "WhatsApp": "",
+    "Instagram": "https://instagram.com/galeria",
+    "Contato_Principal": "https://instagram.com/galeria",
+    "Score": 75,
+    "Mensagem_Abertura": "Oi Galeria! Acompanho seu trabalho em Bauru e vejo o quanto sua marca tem potencial. Notei que você ainda não investe em vídeos de posicionamento profissional para elevar seu ticket médio. Já pensou nisso?",
+    "Mensagem_Reuniao": "Que tal trocarmos 15 minutos de ideia pelo Zoom nesta semana? Posso te mostrar exemplos práticos de vídeos que produzi para negócios na sua região que geraram ótimos resultados. O que acha?",
+    "Notas": "ClínicaStatus Agende uma visita e ou entre em contato com nossa equipe, para tirar dúvidas e saber como os tratamentos pode auxiliar e melhorar sua sa",
+    "Data_encontrado": "2026-10-27 17:01:43"
+  },
+  {
+    "Nome": "Simone D'Avila Esteticista",
+    "Nicho": "Negócio Local & Clínicas",
+    "Cidade": "Bauru",
+    "Website": "https://www.simonedavilaesteticista.com.br/",
+    "Telefone": "",
+    "WhatsApp": "",
+    "Instagram": "https://instagram.com/simonedavilaestetici",
+    "Contato_Principal": "https://instagram.com/simonedavilaestetici",
+    "Score": 75,
+    "Mensagem_Abertura": "Oi Simone! Acompanho seu trabalho em Bauru e vejo o quanto sua marca tem potencial. Notei que você ainda não investe em vídeos de posicionamento profissional para elevar seu ticket médio. Já pensou nisso?",
+    "Mensagem_Reuniao": "Que tal trocarmos 15 minutos de ideia pelo Zoom nesta semana? Posso te mostrar exemplos práticos de vídeos que produzi para negócios na sua região que geraram ótimos resultados. O que acha?",
+    "Notas": "AClínicafoi inaugurada em 2016, após anos de estudos, buscando os mais avançados e consagrados tratamentos estéticos corporais e faciais. Os protocolo",
+    "Data_encontrado": "2026-10-27 17:01:43"
+  },
+  {
+    "Nome": "Clínica Tegris",
+    "Nicho": "Negócio Local & Clínicas",
+    "Cidade": "Bauru",
+    "Website": "https://www.clinicategris.com.br/",
+    "Telefone": "",
+    "WhatsApp": "",
+    "Instagram": "https://instagram.com/clnicategris",
+    "Contato_Principal": "https://instagram.com/clnicategris",
+    "Score": 75,
+    "Mensagem_Abertura": "Oi Clínica! Acompanho seu trabalho em Bauru e vejo o quanto sua marca tem potencial. Notei que você ainda não investe em vídeos de posicionamento profissional para elevar seu ticket médio. Já pensou nisso?",
+    "Mensagem_Reuniao": "Que tal trocarmos 15 minutos de ideia pelo Zoom nesta semana? Posso te mostrar exemplos práticos de vídeos que produzi para negócios na sua região que geraram ótimos resultados. O que acha?",
+    "Notas": "ACLÍNICATEGRIS é umaclínicaespecializada composta por Dermatologista, Nutricionista, Cirurgião Plástico, Esteticista, Ortopedista e Ginecologista, Mas",
+    "Data_encontrado": "2026-10-27 17:01:43"
+  },
+  {
+    "Nome": "LB Clinic Estética Bauru",
+    "Nicho": "Negócio Local & Clínicas",
+    "Cidade": "Bauru",
+    "Website": "https://www.lbclinic.com.br/",
+    "Telefone": "",
+    "WhatsApp": "",
+    "Instagram": "https://instagram.com/lbclinicestticabauru",
+    "Contato_Principal": "https://instagram.com/lbclinicestticabauru",
+    "Score": 75,
+    "Mensagem_Abertura": "Oi LB! Acompanho seu trabalho em Bauru e vejo o quanto sua marca tem potencial. Notei que você ainda não investe em vídeos de posicionamento profissional para elevar seu ticket médio. Já pensou nisso?",
+    "Mensagem_Reuniao": "Que tal trocarmos 15 minutos de ideia pelo Zoom nesta semana? Posso te mostrar exemplos práticos de vídeos que produzi para negócios na sua região que geraram ótimos resultados. O que acha?",
+    "Notas": "A LB CLINIC -ESTÉTICAchegou emBaurue tem tudo que você precisa para manter seu visual e sua autoestima incríveis. Presenteie-se e agende um dos nossos",
+    "Data_encontrado": "2026-10-27 17:01:43"
+  },
+  {
+    "Nome": "Gustavo Souza Arquitetura",
+    "Nicho": "Profissional Liberal",
+    "Cidade": "Bauru",
+    "Website": "https://www.instagram.com/gsarquiteto/",
+    "Telefone": "",
+    "WhatsApp": "",
+    "Instagram": "https://instagram.com/gsarquiteto",
+    "Contato_Principal": "https://instagram.com/gsarquiteto",
+    "Score": 75,
+    "Mensagem_Abertura": "Oi Gustavo! Acompanho seu trabalho em Bauru e vejo o quanto sua marca tem potencial. Notei que você ainda não investe em vídeos de posicionamento profissional para elevar seu ticket médio. Já pensou nisso?",
+    "Mensagem_Reuniao": "Que tal trocarmos 15 minutos de ideia pelo Zoom nesta semana? Posso te mostrar exemplos práticos de vídeos que produzi para negócios na sua região que geraram ótimos resultados. O que acha?",
+    "Notas": "526 Followers, 171 Following, 80 Posts - Gustavo Souza Arquitetura (@gsarquiteto) onInstagram: \"Mestre em Design e ergonomia 📐 arquitetura | interiore",
+    "Data_encontrado": "2026-10-27 17:01:45"
+  },
+  {
+    "Nome": "REALIZA » Arquitetos",
+    "Nicho": "Profissional Liberal",
+    "Cidade": "Bauru",
+    "Website": "https://realizasolucoes.imb.br/arquitetos/dayane-romao",
+    "Telefone": "",
+    "WhatsApp": "",
+    "Instagram": "https://instagram.com/realizaarquitetos",
+    "Contato_Principal": "https://instagram.com/realizaarquitetos",
+    "Score": 75,
+    "Mensagem_Abertura": "Oi REALIZA! Acompanho seu trabalho em Bauru e vejo o quanto sua marca tem potencial. Notei que você ainda não investe em vídeos de posicionamento profissional para elevar seu ticket médio. Já pensou nisso?",
+    "Mensagem_Reuniao": "Que tal trocarmos 15 minutos de ideia pelo Zoom nesta semana? Posso te mostrar exemplos práticos de vídeos que produzi para negócios na sua região que geraram ótimos resultados. O que acha?",
+    "Notas": "Arquiteta e Urbanista, formada pela Universidade do Sagrado Coração (USC)Bauru-SP, em 2018. Desenvolve projetos arquitetônicos residenciais, comerciai",
+    "Data_encontrado": "2026-10-27 17:01:45"
+  },
+  {
+    "Nome": "LF Estudio Arquitetura",
+    "Nicho": "Profissional Liberal",
+    "Cidade": "Bauru",
+    "Website": "https://www.instagram.com/lfestudioarquitetura/",
+    "Telefone": "",
+    "WhatsApp": "",
+    "Instagram": "https://instagram.com/lfestudioarquitetura",
+    "Contato_Principal": "https://instagram.com/lfestudioarquitetura",
+    "Score": 75,
+    "Mensagem_Abertura": "Oi LF! Acompanho seu trabalho em Bauru e vejo o quanto sua marca tem potencial. Notei que você ainda não investe em vídeos de posicionamento profissional para elevar seu ticket médio. Já pensou nisso?",
+    "Mensagem_Reuniao": "Que tal trocarmos 15 minutos de ideia pelo Zoom nesta semana? Posso te mostrar exemplos práticos de vídeos que produzi para negócios na sua região que geraram ótimos resultados. O que acha?",
+    "Notas": "3,172 Followers, 1,065 Following, 250 Posts - LF Estudio Arquitetura (@lfestudioarquitetura) onInstagram: \"☎️ |14| 981453259 |14|981440418 📷 (Imagens ",
+    "Data_encontrado": "2026-10-27 17:01:45"
+  },
+  {
+    "Nome": "Arquiteto Augusto Nebo",
+    "Nicho": "Profissional Liberal",
+    "Cidade": "Bauru",
+    "Website": "https://www.instagram.com/reel/DcpETm4tR1n/",
+    "Telefone": "",
+    "WhatsApp": "",
+    "Instagram": "",
+    "Contato_Principal": "",
+    "Score": 75,
+    "Mensagem_Abertura": "Oi Arquiteto! Acompanho seu trabalho em Bauru e vejo o quanto sua marca tem potencial. Notei que você ainda não investe em vídeos de posicionamento profissional para elevar seu ticket médio. Já pensou nisso?",
+    "Mensagem_Reuniao": "Que tal trocarmos 15 minutos de ideia pelo Zoom nesta semana? Posso te mostrar exemplos práticos de vídeos que produzi para negócios na sua região que geraram ótimos resultados. O que acha?",
+    "Notas": "82 likes, 29 comments - neboarquitetura on August 29, 2026: \"#arquitetura #bauru#sp#baurusp#baurucity\".",
+    "Data_encontrado": "2026-10-27 17:01:45"
+  },
+  {
+    "Nome": "Travagli Arquitetura",
+    "Nicho": "Profissional Liberal",
+    "Cidade": "Bauru",
+    "Website": "https://www.instagram.com/travagliarquitetura/",
+    "Telefone": "",
+    "WhatsApp": "",
+    "Instagram": "https://instagram.com/travagliarquitetura",
+    "Contato_Principal": "https://instagram.com/travagliarquitetura",
+    "Score": 75,
+    "Mensagem_Abertura": "Oi Travagli! Acompanho seu trabalho em Bauru e vejo o quanto sua marca tem potencial. Notei que você ainda não investe em vídeos de posicionamento profissional para elevar seu ticket médio. Já pensou nisso?",
+    "Mensagem_Reuniao": "Que tal trocarmos 15 minutos de ideia pelo Zoom nesta semana? Posso te mostrar exemplos práticos de vídeos que produzi para negócios na sua região que geraram ótimos resultados. O que acha?",
+    "Notas": "2,649 Followers, 1,679 Following, 291 Posts - Travagli Arquitetura (@travagliarquitetura) onInstagram: \"Cada projeto, uma história. Cada espaço, um se",
+    "Data_encontrado": "2026-10-27 17:01:45"
+  },
+  {
+    "Nome": "Gustavo Irineu",
+    "Nicho": "Profissional Liberal",
+    "Cidade": "Bauru",
+    "Website": "https://www.instagram.com/arq.gustavoirineu/",
+    "Telefone": "",
+    "WhatsApp": "",
+    "Instagram": "https://instagram.com/arq.gustavoirineu",
+    "Contato_Principal": "https://instagram.com/arq.gustavoirineu",
+    "Score": 75,
+    "Mensagem_Abertura": "Oi Gustavo! Acompanho seu trabalho em Bauru e vejo o quanto sua marca tem potencial. Notei que você ainda não investe em vídeos de posicionamento profissional para elevar seu ticket médio. Já pensou nisso?",
+    "Mensagem_Reuniao": "Que tal trocarmos 15 minutos de ideia pelo Zoom nesta semana? Posso te mostrar exemplos práticos de vídeos que produzi para negócios na sua região que geraram ótimos resultados. O que acha?",
+    "Notas": "98 Followers, 61 Following, 11 Posts - Gustavo Irineu | Arquitetura (@arq.gustavoirineu) onInstagram: \"Mais do que desejada, a arquitetura deve ser vi",
+    "Data_encontrado": "2026-10-27 17:01:45"
+  },
+  {
+    "Nome": "Carolina Daré",
+    "Nicho": "Profissional Liberal",
+    "Cidade": "Bauru",
+    "Website": "https://www.instagram.com/carolinadarearquiteta/",
+    "Telefone": "",
+    "WhatsApp": "",
+    "Instagram": "https://instagram.com/carolinadarearquiteta",
+    "Contato_Principal": "https://instagram.com/carolinadarearquiteta",
+    "Score": 75,
+    "Mensagem_Abertura": "Oi Carolina! Acompanho seu trabalho em Bauru e vejo o quanto sua marca tem potencial. Notei que você ainda não investe em vídeos de posicionamento profissional para elevar seu ticket médio. Já pensou nisso?",
+    "Mensagem_Reuniao": "Que tal trocarmos 15 minutos de ideia pelo Zoom nesta semana? Posso te mostrar exemplos práticos de vídeos que produzi para negócios na sua região que geraram ótimos resultados. O que acha?",
+    "Notas": "3,486 Followers, 3,972 Following, 145 Posts - Carolina Daré | ArquitetaBauru(@carolinadarearquiteta) onInstagram: \"Sou uma criadora de espaços que aco",
+    "Data_encontrado": "2026-10-27 17:01:45"
+  },
+  {
+    "Nome": "LETTO l Arquitetura e Interiores l Bauru/SP",
+    "Nicho": "Profissional Liberal",
+    "Cidade": "Bauru",
+    "Website": "https://www.instagram.com/letto.arq/",
+    "Telefone": "",
+    "WhatsApp": "",
+    "Instagram": "https://instagram.com/letto.arq",
+    "Contato_Principal": "https://instagram.com/letto.arq",
+    "Score": 75,
+    "Mensagem_Abertura": "Oi LETTO! Acompanho seu trabalho em Bauru e vejo o quanto sua marca tem potencial. Notei que você ainda não investe em vídeos de posicionamento profissional para elevar seu ticket médio. Já pensou nisso?",
+    "Mensagem_Reuniao": "Que tal trocarmos 15 minutos de ideia pelo Zoom nesta semana? Posso te mostrar exemplos práticos de vídeos que produzi para negócios na sua região que geraram ótimos resultados. O que acha?",
+    "Notas": "862 Followers, 702 Following, 35 Posts - LETTO l Arquitetura e Interiores lBauru/SP(@letto.arq) onInstagram: \"Mais do que estética, criamos experiênci",
+    "Data_encontrado": "2026-10-27 17:01:45"
+  }
+];
+        renderAll();
+        renderAll();
+        renderAll();
+        let futuros = JSON.parse(localStorage.getItem('p1xel_futuros') || '[]');
+        let excluidos = JSON.parse(localStorage.getItem('p1xel_excluidos') || '[]');
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadLeads();
+        });
+
+        async function loadLeads() {
+            try {
+                const response = await fetch('leads/leads_2026-10-27_12h.csv');
+                if (response.ok) {
+                    parseCSVText(await response.text());
+                } else {
+                    throw new Error();
+                }
+            } catch (e) {
+                renderAll();
+            }
+        }
+
+        function importCSV(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                parseCSVText(e.target.result);
+                showToast('📂 Leads do CSV carregados com sucesso nos Ativos!');
+            };
+            reader.readAsText(file);
+        }
+
+        function parseCSVText(text) {
+            const lines = text.split('\n');
+            if (lines.length < 2) return;
+            const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+            const newLeads = [];
+            for (let i = 1; i < lines.length; i++) {
+                if (!lines[i].trim()) continue;
+                const row = parseCSVLine(lines[i]);
+                if (row.length >= 2) {
+                    const lead = {};
+                    headers.forEach((h, index) => {
+                        lead[h] = (row[index] || '').trim().replace(/^"|"$/g, '');
+                    });
+                    newLeads.push({
+                        Nome: lead["Nome"] || "Sem Nome",
+                        Nicho: lead["Nicho"] || "Profissional",
+                        Cidade: lead["Cidade"] || "Bauru",
+                        Website: lead["Website"] || "",
+                        Telefone: lead["Telefone"] || "",
+                        WhatsApp: lead["WhatsApp"] || "",
+                        Instagram: lead["Instagram"] || "",
+                        Score: parseInt(lead["Score"]) || 75,
+                        Mensagem_Abertura: lead["Mensagem_Abertura"] || "",
+                        Mensagem_Reuniao: lead["Mensagem_Reuniao"] || "",
+                        Notas: lead["Notas"] || ""
+                    });
+                }
+            }
+            if (newLeads.length > 0) {
+                leads = newLeads;
+                renderAll();
+            }
+        }
+
+        function parseCSVLine(line) {
+            const result = [];
+            let current = '', inQuotes = false;
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+                if (char === '"') inQuotes = !inQuotes;
+                else if (char === ',' && !inQuotes) { result.push(current); current = ''; }
+                else current += char;
+            }
+            result.push(current);
+            return result;
+        }
+
+        function renderAll() {
+            const excluidosNames = new Set(excluidos.map(e => e.Nome));
+            const futurosNames = new Set(futuros.map(f => f.Nome));
+
+            const ativos = leads.filter(l => !excluidosNames.has(l.Nome) && !futurosNames.has(l.Nome));
+
+            document.getElementById('countAtivos').textContent = ativos.length;
+            document.getElementById('countFuturos').textContent = futuros.length;
+            document.getElementById('countExcluidos').textContent = excluidos.length;
+
+            renderGrid('leadsGrid', ativos, 'ativo');
+            renderGrid('futurosGrid', futuros, 'futuro');
+            renderGrid('excluidosGrid', excluidos, 'excluido');
+            updateAnalytics();
+        }
+
+        function renderGrid(elementId, data, type) {
+            const grid = document.getElementById(elementId);
+            if (!data.length) {
+                grid.innerHTML = `<div class="empty-state"><div style="font-size:36px; margin-bottom:10px;">📂</div><div style="font-size:16px; font-weight:600; color:var(--text-secondary);">Nenhum lead nesta aba</div></div>`;
+                return;
+            }
+
+            grid.innerHTML = data.map((lead, idx) => `
+                <div class="lead-card">
+                    <div class="lead-card-header">
+                        <div>
+                            <div class="lead-name">${lead.Nome}</div>
+                            <div class="lead-meta-badges">
+                                <span class="badge badge-nicho">${lead.Nicho || 'Geral'}</span>
+                                <span class="badge badge-cidade">📍 ${lead.Cidade || 'SP'}</span>
+                            </div>
+                        </div>
+                        <div class="score-pill">${lead.Score || '50'}</div>
+                    </div>
+                    <div class="lead-card-body">
+                        <div class="contact-links">
+                            ${lead.Instagram ? `<a href="${lead.Instagram}" target="_blank" class="contact-btn instagram">📸 Instagram</a>` : ''}
+                            ${lead.WhatsApp ? `<a href="${lead.WhatsApp}" target="_blank" class="contact-btn whatsapp">💬 WhatsApp</a>` : ''}
+                        </div>
+
+                        <div class="card-actions-bottom">
+                            ${type === 'ativo' ? `
+                                <button class="action-icon-btn btn-future" onclick="moveTo('futuros', '${escapeHtml(lead.Nome)}')">⭐ Futuro</button>
+                                <button class="action-icon-btn btn-exclude" onclick="moveTo('excluidos', '${escapeHtml(lead.Nome)}')">❌ Excluir</button>
+                            ` : ''}
+                            ${type === 'futuro' ? `
+                                <button class="action-icon-btn" onclick="moveTo('ativos', '${escapeHtml(lead.Nome)}')">🔥 Ativos</button>
+                                <button class="action-icon-btn btn-exclude" onclick="moveTo('excluidos', '${escapeHtml(lead.Nome)}')">❌ Excluir</button>
+                            ` : ''}
+                            ${type === 'excluido' ? `
+                                <button class="action-icon-btn" onclick="moveTo('ativos', '${escapeHtml(lead.Nome)}')">🔥 Ativos</button>
+                                <button class="action-icon-btn btn-future" onclick="moveTo('futuros', '${escapeHtml(lead.Nome)}')">⭐ Futuro</button>
+                                <button class="action-icon-btn btn-exclude" onclick="deletePermanent('${escapeHtml(lead.Nome)}')" style="color:var(--danger); border-color:var(--danger);">🗑️ Apagar</button>
+                            ` : ''}
+                        </div>
+
+                        <div class="message-section">
+                            <button class="message-toggle" onclick="toggleMsg('${type}-${idx}')">
+                                <span>💬 Ver Abordagem</span>
+                                <span>▼</span>
+                            </button>
+                            <div class="message-container" id="msg-${type}-${idx}">
+                                <div class="message-box">
+                                    <div class="message-box-header"><span>Abertura</span><button class="copy-btn" onclick="copyText('${escapeHtml(lead.Mensagem_Abertura)}')">Copiar</button></div>
+                                    <div class="message-text">${lead.Mensagem_Abertura || 'N/A'}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        }
+
+        function moveTo(targetTab, nome) {
+            const lead = leads.find(l => l.Nome === nome) || futuros.find(l => l.Nome === nome) || excluidos.find(l => l.Nome === nome);
+            if (!lead) return;
+
+            futuros = futuros.filter(f => f.Nome !== nome);
+            excluidos = excluidos.filter(e => e.Nome !== nome);
+
+            if (targetTab === 'futuros') {
+                if (!futuros.some(f => f.Nome === nome)) futuros.push(lead);
+                showToast('⭐ Lead movido para Prospects Futuros!');
+            } else if (targetTab === 'excluidos') {
+                if (!excluidos.some(e => e.Nome === nome)) excluidos.push(lead);
+                showToast('❌ Lead movido para Excluídos!');
+            } else if (targetTab === 'ativos') {
+                showToast('🔥 Lead retornado para Ativos!');
+            }
+
+            localStorage.setItem('p1xel_futuros', JSON.stringify(futuros));
+            localStorage.setItem('p1xel_excluidos', JSON.stringify(excluidos));
+            renderAll();
+        }
+
+        function deletePermanent(nome) {
+            excluidos = excluidos.filter(e => e.Nome !== nome);
+            localStorage.setItem('p1xel_excluidos', JSON.stringify(excluidos));
+            renderAll();
+            showToast('🗑️ Lead excluído permanentemente!');
+        }
+
+        function toggleMsg(id) {
+            const box = document.getElementById(`msg-${id}`);
+            box.classList.toggle('show');
+        }
+
+        function updateAnalytics() {
+            const nichos = {};
+            leads.forEach(l => { nichos[l.Nicho || 'Outros'] = (nichos[l.Nicho || 'Outros'] || 0) + 1; });
+            const total = leads.length || 1;
+            document.getElementById('nichoBars').innerHTML = Object.entries(nichos).map(([n, c]) => `
+                <div style="margin-bottom: 10px;">
+                    <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:4px;"><span>${n}</span><span>${c} leads</span></div>
+                    <div style="height:6px; background:#0a0a0a; border-radius:3px; overflow:hidden;"><div style="width:${(c/total)*100}%; height:100%; background:var(--accent);"></div></div>
+                </div>
+            `).join('');
+        }
+
+        function applyFilters() {
+            const s = document.getElementById('filterSearch').value.toLowerCase();
+            const c = document.getElementById('filterCidade').value;
+            const excluidosNames = new Set(excluidos.map(e => e.Nome));
+            const futurosNames = new Set(futuros.map(f => f.Nome));
+
+            const ativos = leads.filter(l => !excluidosNames.has(l.Nome) && !futurosNames.has(l.Nome)).filter(l => {
+                if (c && l.Cidade !== c) return false;
+                if (s && ! (l.Nome + ' ' + l.Nicho).toLowerCase().includes(s)) return false;
+                return true;
+            });
+            renderGrid('leadsGrid', ativos, 'ativo');
+        }
+
+        function switchTab(id, btn) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(`tab-${id}`).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        function copyText(txt) {
+            navigator.clipboard.writeText(txt);
+            showToast('📋 Copiado com sucesso!');
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            document.getElementById('toastText').textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2500);
+        }
+
+        function exportCSV() {
+            if (!leads.length) return;
+            const keys = Object.keys(leads[0]);
+            let csvContent = "data:text/csv;charset=utf-8," + keys.join(",") + "\n";
+            leads.forEach(l => {
+                csvContent += keys.map(k => `"${(l[k] || "").toString().replace(/"/g, '""')}"`).join(",") + "\n";
+            });
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "leads_export.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showToast("📥 Exportado com sucesso!");
+        }
+    </script>
+</body>
+</html>

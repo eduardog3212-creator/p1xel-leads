@@ -1,0 +1,43 @@
+name: OmniRoute Prospecção Automática
+
+on:
+  schedule:
+    # Horários UTC (Brasília é UTC-3)
+    # 8h da manhã BRT = 11h UTC -> 0 11 * * *
+    # 12h meio-dia BRT = 15h UTC -> 0 15 * * *
+    # 18h da tarde BRT = 21h UTC -> 0 21 * * *
+    - cron: '0 11,15,21 * * *'
+
+  # Permite disparar manualmente pelo painel do GitHub
+  workflow_dispatch:
+
+jobs:
+  prospectar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Clonar Repositório
+        uses: actions/checkout@v4
+
+      - name: 🐍 Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: 📦 Instalar Dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4 pandas
+
+      - name: 🚀 Executar Prospecção
+        run: |
+          python3 prospector.py
+
+      - name: 💾 Commit e Push dos Novos Leads
+        run: |
+          git config --global user.name "P1XEL Bot"
+          git config --global user.email "bot@p1xelcreative.com"
+          git add leads/ leads_dashboard.html
+          git commit -m "🤖 Auto-prospecção: novos leads atualizados ($(date +'%Y-%m-%d %H:%M'))" || echo "Sem alterações para commit"
+          git push
