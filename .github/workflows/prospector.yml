@@ -2,11 +2,8 @@ name: OmniRoute Prospecção Automática
 
 on:
   schedule:
-    # Horários UTC (Brasília é UTC-3)
-    # 8h da manhã BRT = 11h UTC -> 0 11 * * *
-    # 12h meio-dia BRT = 15h UTC -> 0 15 * * *
-    # 18h da tarde BRT = 21h UTC -> 0 21 * * *
-    - cron: '0 11,15,21 * * *'
+    # Executar a cada 1 hora (0 * * * *)
+    - cron: '0 * * * *'
 
   # Permite disparar manualmente pelo painel do GitHub
   workflow_dispatch:
@@ -39,5 +36,5 @@ jobs:
           git config --global user.name "P1XEL Bot"
           git config --global user.email "bot@p1xelcreative.com"
           git add leads/ leads_dashboard.html
-          git commit -m "🤖 Auto-prospecção: novos leads atualizados ($(date +'%Y-%m-%d %H:%M'))" || echo "Sem alterações para commit"
+          git commit -m "🤖 Auto-prospecção (A cada 1h): novos leads atualizados ($(date +'%Y-%m-%d %H:%M'))" || echo "Sem alterações para commit"
           git push
