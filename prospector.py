@@ -124,20 +124,28 @@ class Prospector:
 
     def buscar_duckduckgo(self, query):
         resultados = []
-        url = f"https://html.duckduckgo.com/html/?q={quote_plus(query)}"
+        url = "https://html.duckduckgo.com/html/"
         try:
             self.delay()
-            resp = self.session.post(url, data={"q": query}, timeout=self.config["timeout"])
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+                "Accept-Language": "pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3",
+                "Referer": "https://html.duckduckgo.com/"
+            }
+            resp = self.session.post(url, data={"q": query}, headers=headers, timeout=self.config["timeout"])
             if resp.status_code == 200:
                 soup = BeautifulSoup(resp.text, "html.parser")
-                for r in soup.select(".result"):
-                    t = r.select_one(".result__title a")
-                    snippet_el = r.select_one(".result__snippet")
+                # Fallback para seletores variados do DDG HTML
+                for r in soup.select(".result, .web-result, .links_main"):
+                    t = r.select_one(".result__title a, a.result__url, a")
+                    snippet_el = r.select_one(".result__snippet, .body")
                     if t:
                         nome = t.get_text(strip=True)
                         link = t.get("href", "")
                         snippet = snippet_el.get_text(strip=True) if snippet_el else ""
-                        resultados.append({"nome": nome, "link": link, "snippet": snippet})
+                        if nome and len(nome) > 2:
+                            resultados.append({"nome": nome, "link": link, "snippet": snippet})
         except Exception as e:
             print("Erro DuckDuckGo:", e)
         return resultados
